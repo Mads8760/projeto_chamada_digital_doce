@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doce de Flautas - Matrícula</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    
+    <div class="container">
+        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Logo Doce de Flautas" class="logo">
+        
+        <h1>Matrícula - Doce de Flautas 🎼</h1>
+
+        <form action="/alunos" method="POST">
+            
+            <label for="nome">Nome Completo:</label>
+            <input type="text" id="nome" name="nome" required placeholder="Ex: Maria Silva">
+
+            <label for="curso">Curso:</label>
+            <input type="text" id="curso" name="curso" required placeholder="Ex: Licenciatura em Música">
+
+            <label for="tipo_flauta">Tipo de Flauta:</label>
+            <select id="tipo_flauta" name="tipo_flauta">
+                <option value="Soprano">Soprano</option>
+                <option value="Contralto">Contralto</option>
+                <option value="Tenor">Tenor</option>
+                <option value="Baixo">Baixo</option>
+            </select>
+
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone" name="telefone" required placeholder="(85) 99999-9999">
+
+            <label for="deficiencia">Deficiência (se houver):</label>
+            <input type="text" id="deficiencia" name="deficiencia" placeholder="Deixe em branco se não houver">
+
+            <button type="submit">✅ Matricular Aluno</button>
+        </form>
+        </form>
+
+        <a href="/exportar" class="btn-exportar">
+            📥 Baixar Relatório (Excel/CSV)
+        </a>
+
+    </div> </body>
+</html>
+    </div>
+
+</body>
+</html>

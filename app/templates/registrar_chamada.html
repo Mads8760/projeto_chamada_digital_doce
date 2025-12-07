@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chamada - Doce de Flautas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Um estilo extra só para a lista de chamada ficar bonita */
+        .lista-alunos {
+            text-align: left;
+            max-height: 300px; /* Se tiver muitos alunos, cria barra de rolagem */
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .aluno-item {
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        /* Aumenta o tamanho do quadradinho do checkbox */
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            vertical-align: middle; /* Alinha com o texto */
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
+        
+        <h1>Realizar Chamada 📝</h1>
+
+        <form action="/chamada" method="POST">
+            
+            <label>Selecione o Ensaio de Hoje:</label>
+            <select name="ensaio_id" required>
+                <option value="" disabled selected>-- Escolha a Data --</option>
+                {% for ensaio in ensaios %}
+                    <option value="{{ ensaio.id }}">
+                        {{ ensaio.data }} - {{ ensaio.local }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <label>Marque quem está PRESENTE:</label>
+            <div class="lista-alunos">
+                {% for aluno in alunos %}
+                    <div class="aluno-item">
+                        <input type="checkbox" name="alunos_presentes" value="{{ aluno.id }}">
+                        {{ aluno.nome }} ({{ aluno.tipo_flauta }})
+                    </div>
+                {% endfor %}
+            </div>
+
+            <button type="submit">💾 Salvar Presença</button>
+        </form>
+
+        <br>
+        <a href="/matricula" style="color: #666; text-decoration: none;">Voltar para o Início</a>
+    </div>
+
+</body>
+</html>

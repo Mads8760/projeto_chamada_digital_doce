@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agendar Ensaio - Doce de Flautas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    
+    <div class="container">
+        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Logo" class="logo">
+        
+        <h1>Agendar Novo Ensaio 📅</h1>
+
+        <form action="/ensaios" method="POST">
+            
+            <label>Data do Ensaio:</label>
+            <input type="date" name="data" required>
+
+            <label>Horário:</label>
+            <input type="time" name="hora" required>
+
+            <label>Local:</label>
+            <input type="text" name="local" placeholder="Ex: Sala 104 - Bloco F" required>
+
+            <label>Repertório (O que vamos tocar?):</label>
+            <textarea name="repertorio" rows="4" style="width: 100%; border-radius: 8px; padding: 10px; border: 1px solid #ddd;" placeholder="Ex: Asa Branca, Ode à Alegria..."></textarea>
+            <br><br>
+
+            <button type="submit">📅 Confirmar Agendamento</button>
+        </form>
+
+        <br>
+        <a href="/matricula" style="color: #666; text-decoration: none;">Ir para Matrícula de Alunos</a>
+    </div>
+
+</body>
+</html>

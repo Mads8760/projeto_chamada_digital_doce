@@ -36,23 +36,23 @@ def criar_aluno():
     
     # Em vez de devolver JSON, devolvemos uma mensagem simples na tela
     return "<h1>Sucesso! Aluno matriculado. 🎵</h1> <a href='/matricula'>Voltar</a>"
+# app/routes.py
+
 @app.route("/exportar")
 def exportar_dados():
-    # 1. Buscamos todos os alunos do banco
-    # (Usando a consulta do SQLAlchemy 2.0)
+    # 1. Buscamos todos os alunos
     alunos = db.session.execute(db.select(Aluno)).scalars().all()
 
-    # 2. Preparamos um "arquivo virtual" na memória (proxy)
-    # O csv vai escrever aqui dentro, não no disco rígido
+    # 2. Preparamos o arquivo na memória
     output = io.StringIO()
     
-    # 3. Criamos o escritor CSV
+    # === CORREÇÃO 1: MUDAMOS O SEPARADOR PARA PONTO E VÍRGULA ===
     writer = csv.writer(output, delimiter=';')
 
-    # 4. Escrevemos o Cabeçalho (A primeira linha da planilha)
+    # 4. Escrevemos o Cabeçalho
     writer.writerow(['ID', 'Nome', 'Curso', 'Flauta', 'Telefone', 'Deficiência'])
 
-    # 5. Escrevemos os dados (Loop for)
+    # 5. Escrevemos os dados
     for aluno in alunos:
         writer.writerow([
             aluno.id, 
@@ -63,9 +63,7 @@ def exportar_dados():
             aluno.deficiencia
         ])
 
-    # 6. Preparamos a resposta para o navegador
-    # Pegamos tudo que foi escrito no output (getvalue)
-    # E avisamos ao navegador: "Ei, isso é um arquivo CSV para baixar!"
+    # === CORREÇÃO 2: ADICIONAMOS O BOM (\ufeff) PARA OS ACENTOS ===
     return Response(
         '\ufeff' + output.getvalue(),
         mimetype="text/csv",

@@ -47,7 +47,7 @@ def exportar_dados():
     output = io.StringIO()
     
     # 3. Criamos o escritor CSV
-    writer = csv.writer(output)
+    writer = csv.writer(output, delimiter=';')
 
     # 4. Escrevemos o Cabeçalho (A primeira linha da planilha)
     writer.writerow(['ID', 'Nome', 'Curso', 'Flauta', 'Telefone', 'Deficiência'])
@@ -67,7 +67,7 @@ def exportar_dados():
     # Pegamos tudo que foi escrito no output (getvalue)
     # E avisamos ao navegador: "Ei, isso é um arquivo CSV para baixar!"
     return Response(
-        output.getvalue(),
+        '\ufeff' + output.getvalue(),
         mimetype="text/csv",
         headers={"Content-disposition": "attachment; filename=alunos_doce_de_flautas.csv"}
     )
